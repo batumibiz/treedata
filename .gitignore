@@ -1,0 +1,6 @@
+.idea
+clover.xml
+phpunit.xml
+psalm.xml
+/*.cache
+vendor/
