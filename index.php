@@ -59,6 +59,14 @@
         .badge-red {
             background-color: #ff6464;
         }
+
+        .task{
+            background-color: #dadada;
+        }
+
+        .pad{
+            padding: 0 1rem 0.5rem 1rem;
+        }
     </style>
 </head>
 <body>
