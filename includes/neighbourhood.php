@@ -50,8 +50,7 @@ WHERE parent = 8</pre>
     <dd>Нет.</dd>
     <dt>Результат</dt>
     <dd>
-        <span class="badge-green">Отлично</span><br>
-        Рекомендовано к применению.
+        <span class="badge-green">Отлично</span>
     </dd>
 </dl>
 

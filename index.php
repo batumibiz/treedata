@@ -77,6 +77,9 @@ require 'includes/db.php';
 // Построение дерева данных
 require 'includes/fulltree.php';
 
+// Выборка предков
+require 'includes/ancestors.php';
+
 // Выборка детей заданного узла
 require 'includes/neighbourhood.php';
 ?>
