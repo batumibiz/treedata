@@ -27,16 +27,27 @@ WHERE parent = :parent</pre>
         Вышеуказанный запрос крутится рекурсивно программными методами.
         <br><br>
         <?php
-        require 'Tree.php';
-        $tree = new Tree($db);
-        $result = $tree->recursiveWalk();
+        function fullTree(PDO $db, int $parent = 0, int $depth = 0): array
+        {
+            static $result;
+            $req = $db->query('SELECT id, name FROM nodes WHERE parent = ' . $parent);
+
+            while ($res = $req->fetch()) {
+                $res['depth'] = $depth;
+                $result[] = $res;
+                fullTree($db, (int) $res['id'], $depth + 1);
+            }
+
+            return $result;
+        }
+
         ?>
         <table>
             <tr>
                 <th>nodes.id</th>
                 <th>nodes.name</th>
             </tr>
-            <?php foreach ($result as $value): ?>
+            <?php foreach (fullTree($db) as $value): ?>
                 <tr style="color: green">
                     <td><?= $value['id'] ?></td>
                     <td><?= str_repeat('&mdash;', $value['depth']) ?>&nbsp;<?= $value['name'] ?></td>
