@@ -41,13 +41,13 @@
             <?php
 
             // Получаем всех предков указанного узла
-            function breadcrumb(array $data, int $node = 0): array
+            function ancestors(array $data, int $node = 0): array
             {
                 static $result;
 
                 if (isset($data[$node])) {
                     $result[$node] = $data[$node];
-                    breadcrumb($data, $result[$node]['parent']);
+                    ancestors($data, $result[$node]['parent']);
                 }
 
                 return $result;
@@ -59,7 +59,7 @@
                     <th>nodes.id</th>
                     <th>nodes.name</th>
                 </tr>
-                <?php $ancestors = array_reverse(breadcrumb($data, 9), true) ?>
+                <?php $ancestors = array_reverse(ancestors($data, 9), true) ?>
                 <?php foreach ($ancestors as $key => $value): ?>
                     <tr style="color: green">
                         <td><?= $key ?></td>
