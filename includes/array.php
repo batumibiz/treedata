@@ -25,9 +25,9 @@
                     <th>nodes.id</th>
                     <th>nodes.name</th>
                 </tr>
-                <?php foreach ($data as $value): ?>
+                <?php foreach ($data as $key => $value): ?>
                     <tr style="color: green">
-                        <td><?= $value['id'] ?></td>
+                        <td><?= $key ?></td>
                         <td><?= str_repeat('&mdash;', $value['depth']) ?>&nbsp;<?= $value['name'] ?></td>
                     </tr>
                 <?php endforeach; ?>

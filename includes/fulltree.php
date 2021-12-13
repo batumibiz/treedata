@@ -26,15 +26,19 @@
 WHERE parent = :parent</pre>
         <p>Вышеуказанный запрос крутится рекурсивно программными методами.</p>
         <?php
+
+        // Рекурсивный запрос на получение всего дерева данных
         function fullTree(PDO $db, int $parent = 0, int $depth = 0): array
         {
             static $result;
             $req = $db->query('SELECT id, name FROM nodes WHERE parent = ' . $parent);
 
             while ($res = $req->fetch()) {
+                $id = $res['id'];
+                unset($res['id']);
                 $res['depth'] = $depth;
-                $result[] = $res;
-                fullTree($db, (int) $res['id'], $depth + 1);
+                $result[$id] = $res;
+                fullTree($db, (int) $id, $depth + 1);
             }
 
             return $result;
@@ -57,9 +61,9 @@ WHERE parent = :parent</pre>
                 <th>nodes.id</th>
                 <th>nodes.name</th>
             </tr>
-            <?php foreach ($siteMap as $value): ?>
+            <?php foreach ($siteMap as $key => $value): ?>
                 <tr style="color: green">
-                    <td><?= $value['id'] ?></td>
+                    <td><?= $key ?></td>
                     <td><?= str_repeat('&mdash;', $value['depth']) ?>&nbsp;<?= $value['name'] ?></td>
                 </tr>
             <?php endforeach ?>
