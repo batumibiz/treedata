@@ -14,3 +14,44 @@
         <p><a href="?export">Обновить кэш данных</a></p>
     </div>
 </div>
+
+<?php if (is_file('sitemap.php')): ?>
+    <?php $data = include 'sitemap.php' ?>
+    <dl style="margin-top: 1rem">
+        <dt>Дерево данных</dt>
+        <dd>
+            <table>
+                <tr>
+                    <th>nodes.id</th>
+                    <th>nodes.name</th>
+                </tr>
+                <?php foreach ($data as $value): ?>
+                    <tr style="color: green">
+                        <td><?= $value['id'] ?></td>
+                        <td><?= str_repeat('&mdash;', $value['depth']) ?>&nbsp;<?= $value['name'] ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        </dd>
+    </dl>
+
+    <dl style="margin-top: 1rem">
+        <dt>Предки</dt>
+        <dd>
+        </dd>
+    </dl>
+
+    <dl style="margin-top: 1rem">
+        <dt>Соседи</dt>
+        <dd>
+        </dd>
+    </dl>
+
+    <dl style="margin-top: 1rem">
+        <dt>Потомки</dt>
+        <dd>
+        </dd>
+    </dl>
+<?php else: ?>
+    <p>Пожалуйста обновите кэш</p>
+<?php endif; ?>

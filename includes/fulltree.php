@@ -42,8 +42,11 @@ WHERE parent = :parent</pre>
 
         $siteMap = fullTree($db);
 
+        // Экспорт карты сайта
         if (isset($_GET['export'])) {
-            $export = var_export($siteMap, true);
+            $export = "<?php\n\nreturn ";
+            $export .= var_export($siteMap, true);
+            $export .= ';';
             file_put_contents('sitemap.php', $export);
             header('Location:.');
             exit();
