@@ -40,13 +40,21 @@ WHERE parent = :parent</pre>
             return $result;
         }
 
+        $siteMap = fullTree($db);
+
+        if (isset($_GET['export'])) {
+            $export = var_export($siteMap, true);
+            file_put_contents('sitemap.php', $export);
+            header('Location:.');
+            exit();
+        }
         ?>
         <table>
             <tr>
                 <th>nodes.id</th>
                 <th>nodes.name</th>
             </tr>
-            <?php foreach (fullTree($db) as $value): ?>
+            <?php foreach ($siteMap as $value): ?>
                 <tr style="color: green">
                     <td><?= $value['id'] ?></td>
                     <td><?= str_repeat('&mdash;', $value['depth']) ?>&nbsp;<?= $value['name'] ?></td>

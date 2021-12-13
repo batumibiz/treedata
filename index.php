@@ -60,17 +60,21 @@
             background-color: #ff6464;
         }
 
-        .task{
+        .task {
             background-color: #dadada;
         }
 
-        .pad{
+        .pad {
             padding: 0 1rem 0.5rem 1rem;
         }
     </style>
 </head>
 <body>
 <?php
+
+// Решение всех задач через массив
+require 'includes/array.php';
+
 // Подключаем базу данных
 require 'includes/db.php';
 
@@ -82,6 +86,7 @@ require 'includes/ancestors.php';
 
 // Выборка детей заданного узла
 require 'includes/neighbourhood.php';
+
 ?>
 </body>
 </html>
