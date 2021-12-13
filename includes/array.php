@@ -38,6 +38,46 @@
     <dl style="margin-top: 1rem">
         <dt>Предки</dt>
         <dd>
+            <?php
+
+            // Получаем всех предков указанного узла
+            function breadcrumb(array $data, int $node = 0): array
+            {
+                static $result;
+
+                if (isset($data[$node])) {
+                    $result[$node] = $data[$node];
+                    breadcrumb($data, $result[$node]['parent']);
+                }
+
+                return $result;
+            }
+
+            ?>
+            <table>
+                <tr>
+                    <th>nodes.id</th>
+                    <th>nodes.name</th>
+                </tr>
+                <?php $ancestors = array_reverse(breadcrumb($data, 9), true) ?>
+                <?php foreach ($ancestors as $key => $value): ?>
+                    <tr style="color: green">
+                        <td><?= $key ?></td>
+                        <td><?= $value['name'] ?></td>
+                    </tr>
+                <?php endforeach ?>
+            </table>
+            <?php
+            // Показываем Breadcrumb меню
+            $breadcrumb = [];
+            foreach ($ancestors as $key => $value) {
+                $breadcrumb[] = '<a href="#' . $key . '">' . $value['name'] . '</a>';
+            }
+            ?>
+            <p>
+                Пример Breadcrumb меню<br>
+                <?= implode(' | ', $breadcrumb) ?>
+            </p>
         </dd>
     </dl>
 
