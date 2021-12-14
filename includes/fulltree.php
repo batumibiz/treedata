@@ -37,6 +37,7 @@ WHERE parent = :parent</pre>
                 $id = $res['id'];
                 unset($res['id']);
                 $res['depth'] = $depth;
+                $res['parent'] = (int) $res['parent'];
                 $result[$id] = $res;
                 fullTree($db, (int) $id, $depth + 1);
             }

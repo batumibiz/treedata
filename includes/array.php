@@ -84,6 +84,34 @@
     <dl style="margin-top: 1rem">
         <dt>Соседи</dt>
         <dd>
+            <table>
+                <tr>
+                    <th>nodes.id</th>
+                    <th>nodes.name</th>
+                </tr>
+                <?php
+                // Получаем соседей
+                function neighbourhood(array $data, int $id): array
+                {
+                    $result = [];
+
+                    foreach ($data as $key => $value) {
+                        if ($value['parent'] === $id) {
+                            $result[$key] = $value;
+                        }
+                    }
+
+                    return $result;
+                }
+
+                ?>
+                <?php foreach (neighbourhood($data, 8) as $key => $value): ?>
+                    <tr style="color: green">
+                        <td><?= $key ?></td>
+                        <td><?= $value['name'] ?></td>
+                    </tr>
+                <?php endforeach ?>
+            </table>
         </dd>
     </dl>
 
