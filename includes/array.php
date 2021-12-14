@@ -59,7 +59,7 @@
                     <th>nodes.id</th>
                     <th>nodes.name</th>
                 </tr>
-                <?php $ancestors = array_reverse(ancestors($data, 9), true) ?>
+                <?php $ancestors = ancestors($data, 9) ?>
                 <?php foreach ($ancestors as $key => $value): ?>
                     <tr style="color: green">
                         <td><?= $key ?></td>
@@ -76,7 +76,7 @@
             ?>
             <p>
                 Пример Breadcrumb меню<br>
-                <?= implode(' | ', $breadcrumb) ?>
+                <?= implode(' | ', array_reverse($breadcrumb)) ?>
             </p>
         </dd>
     </dl>
