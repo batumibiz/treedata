@@ -22,8 +22,8 @@
         <dd>
             <table>
                 <tr>
-                    <th>nodes.id</th>
-                    <th>nodes.name</th>
+                    <th>id</th>
+                    <th>name</th>
                 </tr>
                 <?php foreach ($data as $key => $value): ?>
                     <tr style="color: green">
@@ -56,8 +56,8 @@
             ?>
             <table>
                 <tr>
-                    <th>nodes.id</th>
-                    <th>nodes.name</th>
+                    <th>id</th>
+                    <th>name</th>
                 </tr>
                 <?php $ancestors = ancestors($data, 9) ?>
                 <?php foreach ($ancestors as $key => $value): ?>
@@ -86,8 +86,8 @@
         <dd>
             <table>
                 <tr>
-                    <th>nodes.id</th>
-                    <th>nodes.name</th>
+                    <th>id</th>
+                    <th>name</th>
                 </tr>
                 <?php
                 // Получаем соседей
