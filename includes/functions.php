@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Получаем всех предков указанного узла
+ * Получаем указанный узел и всех его предков (breadcrumb)
  *
  * @param array $data Массив с полным деревом данных
  * @param int $id Идентификатор узла, начиная от которого будем искать предков
@@ -20,18 +20,18 @@ function array_ancestors(array $data, int $id = 0): array
 }
 
 /**
- * Получаем детей (без их потомков) указанного узла
+ * Получаем соседние узлы, имеющие общего предка
  *
  * @param array $data Массив с полным деревом данных
- * @param int $id Идентификатор узла, детей которого будем искать
+ * @param int $ancestor Идентификатор родительского узла
  * @return array
  */
-function array_neighbourhood(array $data, int $id): array
+function array_neighbourhood(array $data, int $ancestor): array
 {
     $result = [];
     //TODO: попробовать найти алогритм побыстрее, без перебора всего массива
     foreach ($data as $key => $value) {
-        if ($value['parent'] === $id) {
+        if ($value['parent'] === $ancestor) {
             $result[$key] = $value;
         }
     }
@@ -40,7 +40,7 @@ function array_neighbourhood(array $data, int $id): array
 }
 
 /**
- * Получаем всех потомков указанного узла
+ * Получаем указанный узел и всех его потомков
  *
  * @param array $data Массив с полным деревом данных
  * @param int $id Идентификатор узла, для которого будем искать потомков
