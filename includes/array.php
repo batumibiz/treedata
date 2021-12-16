@@ -20,6 +20,7 @@
     <dl style="margin-top: 1rem">
         <dt>Полное дерево данных</dt>
         <dd>
+            <?php $start = microtime(true) ?>
             <table>
                 <tr>
                     <th>id</th>
@@ -32,12 +33,14 @@
                     </tr>
                 <?php endforeach ?>
             </table>
+            <?= '<small>Время выполнения: ' . number_format((microtime(true) - $start), 6) . '</small>' ?>
         </dd>
     </dl>
 
     <dl style="margin-top: 1rem">
         <dt>Узел [9] и все его предки</dt>
         <dd>
+            <?php $start = microtime(true) ?>
             <table>
                 <tr>
                     <th>id</th>
@@ -51,6 +54,7 @@
                     </tr>
                 <?php endforeach ?>
             </table>
+            <?= '<small>Время выполнения: ' . number_format((microtime(true) - $start), 6) . '</small>' ?>
             <?php
             // Показываем Breadcrumb меню
             $breadcrumb = [];
@@ -68,6 +72,7 @@
     <dl style="margin-top: 1rem">
         <dt>Соседи с общим предком [8]</dt>
         <dd>
+            <?php $start = microtime(true) ?>
             <table>
                 <tr>
                     <th>id</th>
@@ -80,12 +85,14 @@
                     </tr>
                 <?php endforeach ?>
             </table>
+            <?= '<small>Время выполнения: ' . number_format((microtime(true) - $start), 6) . '</small>' ?>
         </dd>
     </dl>
 
     <dl style="margin-top: 1rem">
         <dt>Узел [5] и вся ветвь его потомков</dt>
         <dd>
+            <?php $start = microtime(true) ?>
             <table>
                 <tr>
                     <th>id</th>
@@ -98,6 +105,7 @@
                     </tr>
                 <?php endforeach ?>
             </table>
+            <?= '<small>Время выполнения: ' . number_format((microtime(true) - $start), 6) . '</small>' ?>
         </dd>
     </dl>
 <?php else: ?>

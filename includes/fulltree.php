@@ -26,7 +26,7 @@
 WHERE parent = :parent</pre>
         <p>Вышеуказанный запрос крутится рекурсивно программными методами.</p>
         <?php
-
+        $start = microtime(true);
         // Рекурсивный запрос на получение всего дерева данных
         function fullTree(PDO $db, int $parent = 0, int $depth = 0): array
         {
@@ -69,6 +69,7 @@ WHERE parent = :parent</pre>
                 </tr>
             <?php endforeach ?>
         </table>
+        <?= '<small>Время выполнения: ' . number_format((microtime(true) - $start), 6) . '</small>' ?>
     </dd>
     <dt>Достоинства</dt>
     <dd>
@@ -92,6 +93,7 @@ WHERE parent = :parent</pre>
 JOIN nodes n ON c.descendant = n.id
 WHERE c.ancestor = 1</pre>
         <?php
+        $start = microtime(true);
         $req = $db->query(
             'SELECT id, name, parent, node_depth FROM closure c
             JOIN nodes n ON c.descendant = n.id
@@ -110,6 +112,7 @@ WHERE c.ancestor = 1</pre>
                 </tr>
             <?php endwhile ?>
         </table>
+        <?= '<small>Время выполнения: ' . number_format((microtime(true) - $start), 6) . '</small>' ?>
     </dd>
     <dt>Достоинства</dt>
     <dd>
@@ -121,7 +124,7 @@ WHERE c.ancestor = 1</pre>
     </dd>
     <dt>Результат</dt>
     <dd>
-        <span class="badge-red">Плохо</span><br>
+        <span class="badge-red">Задание не выполнено</span><br>
         Не выполнено условие о сохранении иерархической структуры данных.
     </dd>
 </dl>

@@ -28,6 +28,7 @@
 WHERE id = :id</pre>
         <p>Вышеуказанный запрос крутится рекурсивно программными методами.</p>
         <?php
+        $start = microtime(true);
         function breadcrumb(PDO $db, int $node = 0): array
         {
             static $result;
@@ -54,6 +55,7 @@ WHERE id = :id</pre>
                 </tr>
             <?php endforeach ?>
         </table>
+        <?= '<small>Время выполнения: ' . number_format((microtime(true) - $start), 6) . '</small>' ?>
     </dd>
     <dt>Достоинства</dt>
     <dd>Без дополнительных затрат обеспечивается правильная сортировка.</dd>
@@ -73,6 +75,7 @@ WHERE id = :id</pre>
 JOIN nodes n on c.ancestor = n.id
 WHERE c.descendant = 9</pre>
         <?php
+        $start = microtime(true);
         $req = $db->query(
             'SELECT id, name FROM closure c
             JOIN nodes n on c.ancestor = n.id
@@ -91,9 +94,13 @@ WHERE c.descendant = 9</pre>
                 </tr>
             <?php endwhile ?>
         </table>
+        <?= '<small>Время выполнения: ' . number_format((microtime(true) - $start), 6) . '</small>' ?>
     </dd>
     <dt>Достоинства</dt>
-    <dd>Получаем результат одним запросом, без рекурсии.</dd>
+    <dd>
+        Получаем результат одним запросом, без рекурсии.<br>
+        В несколько раз быстрее, чем Ajacency List
+    </dd>
     <dt>Недостатки</dt>
     <dd>
         Нет.

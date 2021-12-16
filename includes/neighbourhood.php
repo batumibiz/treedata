@@ -26,6 +26,7 @@
         <pre>SELECT id, name FROM nodes
 WHERE parent = 8</pre>
         <?php
+        $start = microtime(true);
         $req = $db->query(
             'SELECT id, name FROM nodes
             WHERE parent = 8'
@@ -43,6 +44,7 @@ WHERE parent = 8</pre>
                 </tr>
             <?php endwhile ?>
         </table>
+        <?= '<small>Время выполнения: ' . number_format((microtime(true) - $start), 6) . '</small>' ?>
     </dd>
     <dt>Достоинства</dt>
     <dd>Простейший и быстрый запрос в одну таблицу.</dd>
@@ -62,6 +64,7 @@ WHERE parent = 8</pre>
 JOIN nodes n on c.descendant = n.id
 WHERE c.ancestor = 8</pre>
         <?php
+        $start = microtime(true);
         $req = $db->query(
             'SELECT id, name FROM closure c
             JOIN nodes n on c.descendant = n.id
@@ -80,18 +83,18 @@ WHERE c.ancestor = 8</pre>
                 </tr>
             <?php endwhile ?>
         </table>
+        <?= '<small>Время выполнения: ' . number_format((microtime(true) - $start), 6) . '</small>' ?>
     </dd>
     <dt>Достоинства</dt>
     <dd>Нет</dd>
     <dt>Недостатки</dt>
     <dd>
         Немного более сложный и ресурсоемкий запрос, чем в случае с Ajacency List.<br>
-        Кроме ID родительского узла необходимо указать еще и правильную глубину вложенности.<br>
         Без указания глубины вложенности выдаст родителя и всех нижестоящих потомков.
     </dd>
     <dt>Результат</dt>
     <dd>
-        <span class="badge-red">Плохо</span><br>
+        <span class="badge-red">Задание не выполнено</span><br>
         Не выполнено условие "имеем ID = 8", кроме данного параметра нужно еще указывать правильную глубину вложенности.
     </dd>
 </dl>
