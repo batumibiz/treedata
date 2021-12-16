@@ -46,6 +46,7 @@ WHERE parent = :parent</pre>
         }
 
         $siteMap = fullTree($db);
+        echo '<p>Время выполнения: ' . number_format((microtime(true) - $start), 6) . '</p>';
 
         // Экспорт карты сайта
         if (isset($_GET['export'])) {
@@ -69,7 +70,6 @@ WHERE parent = :parent</pre>
                 </tr>
             <?php endforeach ?>
         </table>
-        <?= '<small>Время выполнения: ' . number_format((microtime(true) - $start), 6) . '</small>' ?>
     </dd>
     <dt>Достоинства</dt>
     <dd>
@@ -94,25 +94,25 @@ JOIN nodes n ON c.descendant = n.id
 WHERE c.ancestor = 1</pre>
         <?php
         $start = microtime(true);
-        $req = $db->query(
+        $result = $db->query(
             'SELECT id, name, parent, node_depth FROM closure c
             JOIN nodes n ON c.descendant = n.id
             WHERE c.ancestor = 1'
-        );
+        )->fetchAll();
+        echo '<p>Время выполнения: ' . number_format((microtime(true) - $start), 6) . '</p>';
         ?>
         <table>
             <tr>
                 <th>nodes.id</th>
                 <th>nodes.name</th>
             </tr>
-            <?php while ($res = $req->fetch()): ?>
+            <?php foreach ($result as $key => $value): ?>
                 <tr style="color: red">
-                    <td><?= $res['id'] ?></td>
-                    <td><?= str_repeat('&mdash;', $res['node_depth']) ?>&nbsp;<?= $res['name'] ?></td>
+                    <td><?= $key ?></td>
+                    <td><?= str_repeat('&mdash;', $value['node_depth']) ?>&nbsp;<?= $value['name'] ?></td>
                 </tr>
-            <?php endwhile ?>
+            <?php endforeach ?>
         </table>
-        <?= '<small>Время выполнения: ' . number_format((microtime(true) - $start), 6) . '</small>' ?>
     </dd>
     <dt>Достоинства</dt>
     <dd>
