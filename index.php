@@ -72,6 +72,8 @@
 </head>
 <body>
 <?php
+// Подключаем файл с функциями
+require 'includes/functions.php';
 
 // Решение всех задач через массив
 require 'includes/array.php';

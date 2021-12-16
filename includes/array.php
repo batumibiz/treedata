@@ -30,7 +30,7 @@
                         <td><?= $key ?></td>
                         <td><?= str_repeat('&mdash;', $value['depth']) ?>&nbsp;<?= $value['name'] ?></td>
                     </tr>
-                <?php endforeach; ?>
+                <?php endforeach ?>
             </table>
         </dd>
     </dl>
@@ -38,28 +38,12 @@
     <dl style="margin-top: 1rem">
         <dt>Предки</dt>
         <dd>
-            <?php
-
-            // Получаем всех предков указанного узла
-            function ancestors(array $data, int $node = 0): array
-            {
-                static $result;
-
-                if (isset($data[$node])) {
-                    $result[$node] = $data[$node];
-                    ancestors($data, $result[$node]['parent']);
-                }
-
-                return $result;
-            }
-
-            ?>
             <table>
                 <tr>
                     <th>id</th>
                     <th>name</th>
                 </tr>
-                <?php $ancestors = ancestors($data, 9) ?>
+                <?php $ancestors = array_ancestors($data, 9) ?>
                 <?php foreach ($ancestors as $key => $value): ?>
                     <tr style="color: green">
                         <td><?= $key ?></td>
@@ -89,23 +73,7 @@
                     <th>id</th>
                     <th>name</th>
                 </tr>
-                <?php
-                // Получаем соседей
-                function neighbourhood(array $data, int $id): array
-                {
-                    $result = [];
-
-                    foreach ($data as $key => $value) {
-                        if ($value['parent'] === $id) {
-                            $result[$key] = $value;
-                        }
-                    }
-
-                    return $result;
-                }
-
-                ?>
-                <?php foreach (neighbourhood($data, 8) as $key => $value): ?>
+                <?php foreach (array_neighbourhood($data, 8) as $key => $value): ?>
                     <tr style="color: green">
                         <td><?= $key ?></td>
                         <td><?= $value['name'] ?></td>
@@ -118,8 +86,14 @@
     <dl style="margin-top: 1rem">
         <dt>Потомки</dt>
         <dd>
+            <?php foreach (array_descendants($data, 8) as $key => $value): ?>
+                <tr style="color: green">
+                    <td><?= $key ?></td>
+                    <td><?= $value['name'] ?></td>
+                </tr>
+            <?php endforeach ?>
         </dd>
     </dl>
 <?php else: ?>
     <p>Пожалуйста обновите кэш</p>
-<?php endif; ?>
+<?php endif ?>
