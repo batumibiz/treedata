@@ -15,14 +15,23 @@
     </div>
 </div>
 
-<?php if (is_file('sitemap.php')): ?>
+<?php if (is_file('cache.php') && is_file('cache.json')): ?>
     <?php
+    // Читаем кэш в формате PHP
     $start = microtime(true);
-    $data = include 'sitemap.php';
-    $getCacheTime = number_format((microtime(true) - $start), 6);
-    echo '<p>Время получения данных из кэш-файла (include): ' . $getCacheTime . '</p>';
-    ?>
+    $data = include 'cache.php';
+    $phpCacheTime = number_format((microtime(true) - $start), 6);
 
+    // Читаем кэш в формате JSON
+    $start = microtime(true);
+    $jsonData = json_decode(file_get_contents('cache.json'), true);
+    $jsonCacheTime = number_format((microtime(true) - $start), 6);
+    ?>
+    <p>Время получения данных из кэш-файла</p>
+    <ul>
+        <li>PHP: <?= $phpCacheTime ?></li>
+        <li>JSON: <?= $jsonCacheTime ?></li>
+    </ul>
     <dl style="margin-top: 1rem">
         <dt>Полное дерево данных</dt>
         <dd>
@@ -32,7 +41,7 @@
                     <th>id</th>
                     <th>name</th>
                 </tr>
-                <?php foreach ($data as $key => $value): ?>
+                <?php foreach ($jsonData as $key => $value): ?>
                     <tr style="color: green">
                         <td><?= $key ?></td>
                         <td><?= str_repeat('&mdash;', $value['depth']) ?>&nbsp;<?= $value['name'] ?></td>

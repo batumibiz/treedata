@@ -1,4 +1,5 @@
 /.idea
-/vendor/
+/cache.json
+/cache.php
 /config.php
-/sitemap.php
+/vendor/

@@ -50,10 +50,17 @@ WHERE parent = :parent</pre>
 
         // Экспорт карты сайта
         if (isset($_GET['export'])) {
+            // Экспортируем в файл PHP
             $export = "<?php\n\nreturn ";
             $export .= var_export($siteMap, true);
             $export .= ';';
-            file_put_contents('sitemap.php', $export);
+            file_put_contents('cache.php', $export);
+
+            // Экспортируем в формат JSON
+            $export = json_encode($siteMap, JSON_UNESCAPED_UNICODE);
+            file_put_contents('cache.json', $export);
+
+            // Возвращаемся на исходную страницу
             header('Location:.');
             exit();
         }
