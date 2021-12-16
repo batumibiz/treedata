@@ -18,7 +18,7 @@
 <?php if (is_file('sitemap.php')): ?>
     <?php $data = include 'sitemap.php' ?>
     <dl style="margin-top: 1rem">
-        <dt>Дерево данных</dt>
+        <dt>Полное дерево данных</dt>
         <dd>
             <table>
                 <tr>
@@ -36,7 +36,7 @@
     </dl>
 
     <dl style="margin-top: 1rem">
-        <dt>Предки</dt>
+        <dt>Узел [9] и все его предки</dt>
         <dd>
             <table>
                 <tr>
@@ -66,7 +66,7 @@
     </dl>
 
     <dl style="margin-top: 1rem">
-        <dt>Соседи</dt>
+        <dt>Соседи с общим предком [8]</dt>
         <dd>
             <table>
                 <tr>
@@ -84,14 +84,20 @@
     </dl>
 
     <dl style="margin-top: 1rem">
-        <dt>Потомки</dt>
+        <dt>Узел [5] и вся ветвь его потомков</dt>
         <dd>
-            <?php foreach (array_descendants($data, 8) as $key => $value): ?>
-                <tr style="color: green">
-                    <td><?= $key ?></td>
-                    <td><?= $value['name'] ?></td>
+            <table>
+                <tr>
+                    <th>id</th>
+                    <th>name</th>
                 </tr>
-            <?php endforeach ?>
+                <?php foreach (array_descendants($data, 5) as $key => $value): ?>
+                    <tr style="color: green">
+                        <td><?= $key ?></td>
+                        <td><?= str_repeat('&mdash;', $value['depth'] - 1) ?>&nbsp;<?= $value['name'] ?></td>
+                    </tr>
+                <?php endforeach ?>
+            </table>
         </dd>
     </dl>
 <?php else: ?>

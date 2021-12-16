@@ -48,5 +48,17 @@ function array_neighbourhood(array $data, int $ancestor): array
  */
 function array_descendants(array $data, int $id): array
 {
-    return [];
+    static $result = [];
+
+    if (isset($data[$id])) {
+        $result[$id] = $data[$id];
+
+        foreach ($data as $key => $value) {
+            if($value['parent'] === $id){
+                array_descendants($data, $key);
+            }
+        }
+    }
+
+    return $result;
 }
