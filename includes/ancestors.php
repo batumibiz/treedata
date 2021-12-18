@@ -42,20 +42,21 @@ WHERE id = :id</pre>
             return $result;
         }
 
+        $breadcrumb = breadcrumb($db, 9);
+        echo '<p>Время выполнения: ' . number_format((microtime(true) - $start), 6) . '</p>';
         ?>
         <table>
             <tr>
                 <th>nodes.id</th>
                 <th>nodes.name</th>
             </tr>
-            <?php foreach (breadcrumb($db, 9) as $value): ?>
+            <?php foreach ($breadcrumb as $value): ?>
                 <tr style="color: green">
                     <td><?= $value['id'] ?></td>
                     <td><?= $value['name'] ?></td>
                 </tr>
             <?php endforeach ?>
         </table>
-        <?= '<small>Время выполнения: ' . number_format((microtime(true) - $start), 6) . '</small>' ?>
     </dd>
     <dt>Достоинства</dt>
     <dd>Без дополнительных затрат обеспечивается правильная сортировка.</dd>
@@ -63,10 +64,11 @@ WHERE id = :id</pre>
     <dd>Используется рекурсивный запрос.</dd>
     <dt>Результат</dt>
     <dd>
-        <span class="badge-yellow">Приемлемо</span>
+        <span class="badge-yellow">Приемлемо</span><br>
+        Оценка снижена за использование рекурсивного запроса.
     </dd>
 </dl>
-
+<br>
 <h3>Closure Table</h3>
 <dl>
     <dt>Запрос</dt>
@@ -76,25 +78,25 @@ JOIN nodes n on c.ancestor = n.id
 WHERE c.descendant = 9</pre>
         <?php
         $start = microtime(true);
-        $req = $db->query(
+        $result = $db->query(
             'SELECT id, name FROM closure c
             JOIN nodes n on c.ancestor = n.id
             WHERE c.descendant = 9'
-        );
+        )->fetchAll();
+        echo '<p>Время выполнения: ' . number_format((microtime(true) - $start), 6) . '</p>';
         ?>
         <table>
             <tr>
                 <th>nodes.id</th>
                 <th>nodes.name</th>
             </tr>
-            <?php while ($res = $req->fetch()): ?>
+            <?php foreach ($result as $value): ?>
                 <tr style="color: green">
-                    <td><?= $res['id'] ?></td>
-                    <td><?= $res['name'] ?></td>
+                    <td><?= $value['id'] ?></td>
+                    <td><?= $value['name'] ?></td>
                 </tr>
-            <?php endwhile ?>
+            <?php endforeach ?>
         </table>
-        <?= '<small>Время выполнения: ' . number_format((microtime(true) - $start), 6) . '</small>' ?>
     </dd>
     <dt>Достоинства</dt>
     <dd>
@@ -110,3 +112,4 @@ WHERE c.descendant = 9</pre>
         <span class="badge-green">Отлично</span>
     </dd>
 </dl>
+<br>
