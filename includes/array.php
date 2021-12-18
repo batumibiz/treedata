@@ -4,12 +4,21 @@
         <p>
             Для данного задания база данных вообще не задействована.<br>
             Вместо этого используется файл-кэш с массивом, представляющим собой полное дерево данных.<br>
-            Кэш с полным деревом данных формируется с помощью Ajacency List, пример запроса представлен в следующем разделе.
+            Кэш с полным деревом данных формируется с помощью Ajacency List, пример запроса представлен выше.
         </p>
         <p><strong>Условие задания</strong></p>
         <ul>
             <li>Все задачи ДОЛЖНЫ быть решены путем использования файла-кэша с массивом данных.</li>
             <li>НЕДОПУСТИМО использование базы данных.</li>
+            <li>
+                Выполнить следующие задачи:
+                <ul>
+                    <li>Полное дерево данных</li>
+                    <li>Узел [9] и все его предки</li>
+                    <li>Соседи с общим предком [8]</li>
+                    <li>Узел [5] и вся ветвь его потомков</li>
+                </ul>
+            </li>
         </ul>
         <p><a href="?export">Обновить кэш данных</a></p>
     </div>
@@ -21,27 +30,22 @@
     $start = microtime(true);
     $data = include 'cache.php';
     $phpCacheTime = number_format((microtime(true) - $start), 6);
-
-    // Читаем кэш в формате JSON
-    $start = microtime(true);
-    $jsonData = json_decode(file_get_contents('cache.json'), true);
-    $jsonCacheTime = number_format((microtime(true) - $start), 6);
     ?>
-    <p>Время получения данных из кэш-файла</p>
-    <ul>
-        <li>PHP: <?= $phpCacheTime ?></li>
-        <li>JSON: <?= $jsonCacheTime ?></li>
-    </ul>
+
     <dl style="margin-top: 1rem">
         <dt>Полное дерево данных</dt>
         <dd>
-            <p>Время выполнения: 0</p>
+            <p>
+                Время выполнения: 0<br>
+                <small>Данные, полученные из кэш-файла уже являются готовым отсортированным деревом,
+                поэтому никакая дополнительная обработка не проводится.</small>
+            </p>
             <table>
                 <tr>
                     <th>id</th>
                     <th>name</th>
                 </tr>
-                <?php foreach ($jsonData as $key => $value): ?>
+                <?php foreach ($data as $key => $value): ?>
                     <tr style="color: green">
                         <td><?= $key ?></td>
                         <td><?= str_repeat('&mdash;', $value['depth']) ?>&nbsp;<?= $value['name'] ?></td>

@@ -56,10 +56,6 @@ WHERE parent = :parent</pre>
             $export .= ';';
             file_put_contents('cache.php', $export);
 
-            // Экспортируем в формат JSON
-            $export = json_encode($siteMap, JSON_UNESCAPED_UNICODE);
-            file_put_contents('cache.json', $export);
-
             // Возвращаемся на исходную страницу
             header('Location:.');
             exit();

@@ -75,9 +75,6 @@
 // Подключаем файл с функциями
 require 'includes/functions.php';
 
-// Решение всех задач через массив
-require 'includes/array.php';
-
 // Подключаем базу данных
 require 'includes/db.php';
 
@@ -90,6 +87,8 @@ require 'includes/ancestors.php';
 // Выборка детей заданного узла
 require 'includes/neighbourhood.php';
 
+// Решение всех задач через массив
+require 'includes/array.php';
 ?>
 </body>
 </html>
