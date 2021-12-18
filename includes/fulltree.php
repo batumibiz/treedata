@@ -31,7 +31,7 @@ WHERE parent = :parent</pre>
         function fullTree(PDO $db, int $parent = 0, int $depth = 0): array
         {
             static $result;
-            $req = $db->query('SELECT id, name, parent FROM nodes WHERE parent = ' . $parent);
+            $req = $db->query('SELECT id, name, parent FROM nodes WHERE parent = ' . $parent . ' ORDER BY sort_order');
 
             while ($res = $req->fetch()) {
                 $id = $res['id'];

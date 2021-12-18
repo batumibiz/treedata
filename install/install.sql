@@ -1,19 +1,11 @@
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8 */;
-/*!50503 SET NAMES utf8mb4 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
 DROP TABLE IF EXISTS `closure`;
-CREATE TABLE IF NOT EXISTS `closure` (
+CREATE TABLE `closure` (
   `ancestor` int(10) unsigned NOT NULL DEFAULT 0,
   `descendant` int(10) unsigned NOT NULL DEFAULT 0,
   `node_depth` tinyint(3) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`ancestor`,`descendant`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
-/*!40000 ALTER TABLE `closure` DISABLE KEYS */;
 INSERT INTO `closure` (`ancestor`, `descendant`, `node_depth`) VALUES
 	(1, 1, 0),
 	(1, 2, 1),
@@ -63,35 +55,28 @@ INSERT INTO `closure` (`ancestor`, `descendant`, `node_depth`) VALUES
 	(11, 11, 5),
 	(12, 12, 5),
 	(13, 13, 5);
-/*!40000 ALTER TABLE `closure` ENABLE KEYS */;
 
 DROP TABLE IF EXISTS `nodes`;
-CREATE TABLE IF NOT EXISTS `nodes` (
+CREATE TABLE `nodes` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `parent` int(10) unsigned NOT NULL,
+  `parent` int(10) unsigned NOT NULL DEFAULT 0,
+  `sort_order` smallint(5) unsigned NOT NULL DEFAULT 0,
   `name` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
-  KEY `parent_id` (`parent`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  KEY `parent` (`parent`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
-/*!40000 ALTER TABLE `nodes` DISABLE KEYS */;
-INSERT INTO `nodes` (`id`, `parent`, `name`) VALUES
-	(1, 0, 'Главная'),
-	(2, 0, 'О компании'),
-	(3, 0, 'Продукция'),
-	(4, 0, 'Контакты'),
-	(5, 3, 'Мыло'),
-	(6, 3, 'Скраб'),
-	(7, 3, 'Свечи'),
-	(8, 5, 'Крафтовое'),
-	(9, 8, 'Лечебное'),
-	(10, 8, 'Уходовое'),
-	(11, 9, 'Для сухой кожи'),
-	(12, 9, 'Для жирной кожи'),
-	(13, 9, 'Для нормальной кожи');
-/*!40000 ALTER TABLE `nodes` ENABLE KEYS */;
-
-/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
+INSERT INTO `nodes` (`id`, `parent`, `sort_order`, `name`) VALUES
+	(1, 0, 1, 'Главная'),
+	(2, 0, 3, 'О компании'),
+	(3, 0, 2, 'Продукция'),
+	(4, 0, 4, 'Контакты'),
+	(5, 3, 0, 'Мыло'),
+	(6, 3, 0, 'Скраб'),
+	(7, 3, 0, 'Свечи'),
+	(8, 5, 0, 'Крафтовое'),
+	(9, 8, 0, 'Лечебное'),
+	(10, 8, 0, 'Уходовое'),
+	(11, 9, 2, 'Для сухой кожи'),
+	(12, 9, 3, 'Для жирной кожи'),
+	(13, 9, 1, 'Для нормальной кожи');

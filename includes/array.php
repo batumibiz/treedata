@@ -24,7 +24,7 @@
     </div>
 </div>
 
-<?php if (is_file('cache.php') && is_file('cache.json')): ?>
+<?php if (is_file('cache.php')): ?>
     <?php
     // Читаем кэш в формате PHP
     $start = microtime(true);
