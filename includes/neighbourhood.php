@@ -70,6 +70,7 @@ WHERE c.ancestor = 8</pre>
             JOIN nodes n on c.descendant = n.id
             WHERE c.ancestor = 8'
         )->fetchAll();
+        echo '<p>Время выполнения: ' . number_format((microtime(true) - $start), 6) . '</p>';
         ?>
         <table>
             <tr>
@@ -83,7 +84,6 @@ WHERE c.ancestor = 8</pre>
                 </tr>
             <?php endforeach ?>
         </table>
-        <?= '<small>Время выполнения: ' . number_format((microtime(true) - $start), 6) . '</small>' ?>
     </dd>
     <dt>Достоинства</dt>
     <dd>Нет</dd>
@@ -98,3 +98,4 @@ WHERE c.ancestor = 8</pre>
         Не выполнено условие "имеем ID = 8", кроме данного параметра нужно еще указывать правильную глубину вложенности.
     </dd>
 </dl>
+<br>
