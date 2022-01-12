@@ -84,7 +84,7 @@
             ?>
             <p>
                 Пример Breadcrumb меню<br>
-                <?= implode(' | ', array_reverse($breadcrumb)) ?>
+                <?= implode(' / ', array_reverse($breadcrumb)) ?>
             </p>
         </dd>
     </dl>
