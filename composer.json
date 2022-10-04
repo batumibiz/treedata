@@ -1,0 +1,23 @@
+{
+    "name": "batumibiz/treedata",
+    "description": "mobiCMS Content Management System",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Oleg Kasyanov",
+            "email": "oleg@batumi.org",
+            "homepage": "https://github.com/batumibiz",
+            "role": "Team Lead, Developer"
+        }
+    ],
+    "require": {
+        "php": "~8.0 || ~8.1 || ~8.2",
+        "ext-pdo": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Treedata\\": "src/"
+        }
+    }
+}

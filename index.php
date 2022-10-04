@@ -1,4 +1,10 @@
-<?php ob_start() ?>
+<?php
+
+ob_start();
+require 'vendor/autoload.php';
+$db = (new Treedata\Db())(require 'config.php');
+
+?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -74,9 +80,6 @@
 <?php
 // Подключаем файл с функциями
 require 'includes/functions.php';
-
-// Подключаем базу данных
-require 'includes/db.php';
 
 // Построение дерева данных
 require 'includes/fulltree.php';
