@@ -1,3 +1,5 @@
 /.idea
 /cache.php
 /config.php
+/vendor/
+/composer.lock
