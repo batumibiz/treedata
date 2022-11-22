@@ -28,8 +28,9 @@
     <?php
     // Читаем кэш в формате PHP
     $start = microtime(true);
+    //$phpCacheTime = number_format((microtime(true) - $start), 6);
     $data = include 'cache.php';
-    $phpCacheTime = number_format((microtime(true) - $start), 6);
+    $tree = new Treedata\ArrayTree($data);
     ?>
 
     <dl style="margin-top: 1rem">
@@ -60,7 +61,7 @@
         <dd>
             <?php
             $start = microtime(true);
-            $ancestors = array_ancestors($data, 9);
+            $ancestors = $tree->ancestors(9);
             echo '<p>Время выполнения: ' . number_format((microtime(true) - $start), 6) . '</p>';
             ?>
             <table>
@@ -94,7 +95,7 @@
         <dd>
             <?php
             $start = microtime(true);
-            $neighbourhood = array_neighbourhood($data, 8);
+            $neighbourhood = $tree->neighbourhood(8);
             echo '<p>Время выполнения: ' . number_format((microtime(true) - $start), 6) . '</p>';
             ?>
             <table>
@@ -117,7 +118,7 @@
         <dd>
             <?php
             $start = microtime(true);
-            $descendants = array_descendants($data, 5);
+            $descendants = $tree->descendants(5);
             echo '<p>Время выполнения: ' . number_format((microtime(true) - $start), 6) . '</p>';
             ?>
             <table>

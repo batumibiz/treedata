@@ -78,9 +78,6 @@ $db = (new Treedata\Db())(require 'config.php');
 </head>
 <body>
 <?php
-// Подключаем файл с функциями
-require 'includes/functions.php';
-
 // Построение дерева данных
 require 'includes/fulltree.php';
 
